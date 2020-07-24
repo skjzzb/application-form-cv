@@ -1,0 +1,209 @@
+<html lang="en" >
+   <head>
+      <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+      <script language="javascript">
+         angular
+            .module('firstApplication', ['ngMaterial'])
+            .module('inputErrorsApp', ['ngMaterial', 'ngMessages'])
+            .controller('cardController', cardController);
+
+            
+
+         function cardController ($scope) {            
+         }  
+      </script> 
+         <style type="text/css">
+       md-card {
+        margin: 8px auto;
+        width: 50%;
+        background: #fff;
+        }
+        .md-title {
+    font-size: 29px;
+    font-weight: 500;
+    letter-spacing: .005em;
+    text-align: center;
+    background: rgb(255, 255, 255);
+    padding: 10px;
+    border-radius: 3px;
+    box-shadow: 1px 1px 1px 1px hsl(207, 68%, 26%);
+    color: #2196F3;
+}
+
+.inputdemoErrors .inputErrorsApp {
+  min-height: 48px; }
+
+.inputdemoErrors md-input-container > p {
+  font-size: 0.8em;
+  text-align: left;
+  width: 100%; }
+
+
+  md-input-container:after(.md-input-valid) .md-auto-hide .md-input-message-animation{
+opacity: 0!important;
+
+  }
+            md-input-container {
+             margin: 0px!important;
+             vertical-align: middle;
+            }
+            .center_align{
+               text-align: center;
+               margin: 0 auto;
+            }
+md-input-container.md-default-theme label, md-input-container label, md-input-container.md-default-theme .md-placeholder, md-input-container .md-placeholder {
+
+    color: #2196F3!important;
+}
+md-input-container:after {
+    content: '';
+    display: table;
+    clear: both;
+    opacity: 0!important;
+}
+.clearflex{
+      display: block;
+    padding: 16px;
+}
+.pull-left{
+  float: left;
+    width: 45%;
+    margin: 10px;
+    text-align: center!important;
+    margin: auto;
+}
+.pull-right{
+  float: right;
+    width: 45%;
+    margin: 10px;
+    text-align: center!important;
+    margin: auto;
+}
+
+
+       
+      </style>    
+   </head>
+   <form name="projectForm">
+   <body ng-app="firstApplication">  
+      <md-card>
+       <md-card-header>
+        <md-card-header-text>
+          <span class="md-title">Registration Form</span>
+           </md-card-header-text>
+        </md-card-header>
+       <md-card-content>
+
+
+
+
+<div layout="row">
+        <!-- <md-input-container class="flex-50">
+          <label>First Name</label>
+          <input required="" name="clientName" ng-model="project.clientName" class="ng-pristine ng-untouched md-input ng-empty ng-invalid ng-invalid-required" id="input_235" aria-invalid="true" style="">
+        </md-input-container> -->
+
+        <md-input-container flex="50" class="flex-50 md-input-invalid">
+          <label class="md-required" for="input_235">First Name</label>
+          <input required="" name="clientName" ng-model="project.firstName" class="ng-pristine md-input ng-empty ng-invalid ng-invalid-required ng-touched">
+          <div class="md-errors-spacer"></div>
+          <div ng-messages="projectForm.firstName.$error" class="md-input-messages-animation md-auto-hide ng-active" aria-live="assertive">
+            <!-- ngMessage: required --><div ng-message="required" class="md-input-message-animation ng-scope"></div>
+          </div>
+        </md-input-container>
+
+        <md-input-container class="flex-50">
+          <label>Last Name</label>
+          <input>
+        </md-input-container>
+
+
+        </div>
+
+        <div layout="row">
+
+        <md-input-container class="flex-50">
+          <label>Gender</label>
+          <md-select ng-model="State">
+          <md-option value="Male">Male</md-option>
+          <md-option value="Female">Female</md-option>
+          </md-select>
+        </md-input-container>
+
+        <md-input-container class="flex-50">
+          <label>Occupations</label>
+          <md-select ng-model="Occupations">
+          <md-option value="Student">Student</md-option>
+          <md-option value="Working">Working</md-option>
+          </md-select>
+        </md-input-container>
+      </div>
+
+      <div class="flex-50"></div>
+      <div class="clearflex"></div>
+
+
+      <div layout="row">
+        <md-input-container class="flex-50">
+          <label>Email</label>
+          <input>
+        </md-input-container>
+
+        <md-input-container class="flex-50">
+          <label>Password</label>
+          <input type="password">
+        </md-input-container>
+        </div>
+
+        <div layout="row">
+        <md-input-container class="flex-50">
+          <label>Retype Password</label>
+          <input type="password">
+        </md-input-container>
+      
+        <md-input-container class="flex-50">
+          <label>Address</label>
+          <input>
+        </md-input-container>
+        </div>
+
+        <div layout="row">
+
+        <md-input-container class="flex-50">
+          <label>Zip Code</label>
+          <input type="number">
+        </md-input-container>
+
+        <md-input-container class="flex-50">
+          <label>Mobile No.</label>
+          <input>
+        </md-input-container>
+        
+
+        <md-input-container class="flex-50">
+          <label>City</label>
+          <md-select ng-model="City">
+          <md-option value="Bangalore">Bangalore</md-option>
+          <md-option value="Mysore">Mysore</md-option>
+          </md-select>
+        </md-input-container>
+
+        </div>
+      
+
+         <button class="md-primary md-raised md-button md-ink-ripple flex-50 pull-left" type="button" ng-transclude="" flex="50">
+         <span class="ng-scope">Submit</span>
+         <div class="md-ripple-container"></div>
+         </button>
+
+         <button class="md-raised md-primary md-button md-ink-ripple flex-50 pull-right" type="button" ng-transclude="" ng-disabled="false" disabled="disabled"><span class="ng-scope">Cancel</span></button>
+         </md-card-content>
+      </md-card>
+   </body>
+</html>
