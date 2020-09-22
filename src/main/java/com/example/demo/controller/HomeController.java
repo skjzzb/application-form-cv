@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import java.io.FileOutputStream;
+
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.text.DateFormat;
@@ -9,6 +10,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
@@ -43,6 +45,7 @@ import com.google.api.services.drive.Drive;
 import com.google.api.services.drive.DriveScopes;
 import com.google.api.services.drive.model.File;
 import com.google.api.services.drive.model.FileList;
+import com.google.api.services.drive.model.Permission;
 
 @CrossOrigin("*")
 @RestController
@@ -163,6 +166,7 @@ public class HomeController {
 				e.printStackTrace();
 			}
 	    }
+	 
     public void uploadFileInFolder(String fileName,String type,String tempPath) throws IOException {
     	
 		Credential cred = flow.loadCredential(USER_IDENTIFIER_KEY);
@@ -184,10 +188,31 @@ public class HomeController {
 		
 		//get file content 
 		FileContent content = new FileContent(type, new java.io.File(tempPath+java.io.File.separator+fileName));
-		File uploadedFile = drive.files().create(file, content).setFields("id").execute();
+		File uploadedFile = drive.files().create(file, content).setFields("id, webContentLink, webViewLink, parents").execute();
 
+//		drive.permissions.create({
+//			  fileId: '......',
+//			  requestBody: {
+//			    role: 'reader',
+//			    type: 'anyone',
+//			  }
+//			});
+		drive.permissions().create(	uploadedFile.getId(),
+									new Permission()
+									.setRole("reader")
+									.setType("anyone")
+									)
+									.execute();
+		
+		File metadata = drive.files().get(uploadedFile.getId()).execute();
+		System.out.println(metadata);
+		
+		System.out.println(uploadedFile.getWebViewLink());
+		System.out.println(metadata.getWebViewLink());
+		
 		String fileReference = String.format("{fileID: '%s'}", uploadedFile.getId());
 	}
+    
     //Create folder temp using system variable
 	 public String createFolder(String folderName)
 		{
@@ -264,5 +289,19 @@ public class HomeController {
           return dateFormatter.format(argDate);
           
 	}
+	
+	   @PostMapping("/uploadmultipleprofiles")
+	    public void uploadMultipleFiles(@RequestParam("files") MultipartFile[] files) {
+//	         Arrays.asList(files)
+//	                .stream()
+//	                .map(file -> uploadFile(file));
+//	                
+		   for(MultipartFile f : files )
+			try {
+				this.uploadFile(f);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+	   }
         
 }
